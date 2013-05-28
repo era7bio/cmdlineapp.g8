@@ -13,8 +13,8 @@ case class AppConf(arguments: Seq[String]) extends ScallopConf(arguments) {
 
 
 class Main extends xsbti.AppMain {
-  def run(config: xsbti.AppConfiguration) =
-    new Exit(Main.exec(config.arguments))
+  
+  def run(config: xsbti.AppConfiguration) = new Exit(Main.exec(config.arguments))
 }
 
 case class Exit(val code: Int) extends xsbti.Exit
