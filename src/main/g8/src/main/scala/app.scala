@@ -4,7 +4,8 @@ import org.rogach.scallop._
 
 case class AppConf(arguments: Seq[String]) extends ScallopConf(arguments) {
 
-  version("preprocessing-report 0.1.0")
+  // TODO: sbt build-info to get version here
+  version("$cmdline_name$ $version$")
 
   // TODO: add example opts here
 }
