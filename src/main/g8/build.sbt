@@ -28,8 +28,11 @@ resolvers ++= Seq (
   , "Era7 Snapshots" at "http://snapshots.era7.com.s3.amazonaws.com"
   )
 
+libraryDependencies += "org.scala-sbt" % "launcher-interface" % "0.12.1" % "provided"
+
 libraryDependencies ++= Seq (
-                              "com.chuusai" %% "shapeless" % "1.2.3"
+                              "com.chuusai" %% "shapeless" % "1.2.3",
+                              "org.rogach" %% "scallop" % "0.9.1"
                             )
 
 scalacOptions ++= Seq(
@@ -37,6 +40,7 @@ scalacOptions ++= Seq(
                       "-language:higherKinds",
                       "-language:implicitConversions",
                       "-language:postfixOps",
+                      "-language:reflectiveCalls",
                       "-deprecation",
                       "-unchecked"
                     )
