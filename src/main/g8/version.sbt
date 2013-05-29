@@ -1,1 +1,2 @@
+
 version in ThisBuild := "$version$"

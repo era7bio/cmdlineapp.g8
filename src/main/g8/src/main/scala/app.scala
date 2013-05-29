@@ -1,11 +1,12 @@
 package $org$.$name;format="norm"$
 
 import org.rogach.scallop._
+import buildinfo._
 
 case class AppConf(arguments: Seq[String]) extends ScallopConf(arguments) {
 
   // TODO: sbt build-info to get version here
-  version("$cmdline_name$ $version$")
+  version("$cmdline_name$ %s" format BuildInfo.version)
 
   // TODO: add example opts here
 }
