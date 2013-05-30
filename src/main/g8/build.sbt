@@ -17,7 +17,7 @@ publishMavenStyle := false
 publishTo <<= (isSnapshot, s3resolver) { 
                 (snapshot,   resolver) => 
   val prefix = if (snapshot) "snapshots" else "releases"
-  resolver("Era7 "+prefix+" S3 bucket", "s3://"+prefix+".era7.com")
+  resolver("Era7 "+prefix+" S3 bucket publisher", "s3://"+prefix+".era7.com")
 }
 
 resolvers ++= Seq ( 
@@ -28,22 +28,20 @@ resolvers ++= Seq (
   , "Era7 Snapshots" at "http://snapshots.era7.com.s3.amazonaws.com"
   )
 
-libraryDependencies += "org.scala-sbt" % "launcher-interface" % "0.12.1" % "provided"
-
 libraryDependencies ++= Seq (
-                              "com.chuusai" %% "shapeless" % "1.2.3",
-                              "org.rogach" %% "scallop" % "0.9.1"
-                            )
+    "org.scala-sbt" % "launcher-interface" % "0.12.1" % "provided"
+  , "org.rogach" %% "scallop" % "0.9.1"
+  )
 
 scalacOptions ++= Seq(
-                      "-feature",
-                      "-language:higherKinds",
-                      "-language:implicitConversions",
-                      "-language:postfixOps",
-                      "-language:reflectiveCalls",
-                      "-deprecation",
-                      "-unchecked"
-                    )
+    "-feature"
+  , "-language:higherKinds"
+  , "-language:implicitConversions"
+  , "-language:postfixOps"
+  , "-language:reflectiveCalls"
+  , "-deprecation"
+  , "-unchecked"
+  )
 
 // sbt-release settings
 
@@ -63,3 +61,11 @@ releaseProcess <<= thisProjectRef apply { ref =>
   , pushChanges
   )
 }
+
+// sbt-buildinfo settings
+
+buildInfoSettings
+
+sourceGenerators in Compile <+= buildInfo
+
+buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion)
