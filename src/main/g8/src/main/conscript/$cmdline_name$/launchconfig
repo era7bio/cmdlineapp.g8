@@ -2,7 +2,7 @@
   version: $version$
   org: $org$
   name: $name$_2.10
-  class: $org$.$org$.$name;format="norm"$.Main
+  class: $org$.$name;format="norm"$.Main
   cross-versioned: false
 [scala]
   version: $scala_version$
