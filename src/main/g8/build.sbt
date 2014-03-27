@@ -1,24 +1,14 @@
-
-import sbtrelease._
-import ReleaseStateTransformations._
-import ReleasePlugin._
-import ReleaseKeys._
-
-
-name := "$name$"
+Nice.scalaProject
 
 organization := "$org$"
 
-scalaVersion := "$scala_version$"
+name := "$name$"
 
+description := "$name$ project"
 
-publishMavenStyle := false
+bucketSuffix := "era7.com"
 
-publishTo <<= (isSnapshot, s3resolver) { 
-                (snapshot,   resolver) => 
-  val prefix = if (snapshot) "snapshots" else "releases"
-  resolver("Era7 "+prefix+" S3 bucket publisher", "s3://"+prefix+".era7.com")
-}
+docsOutputDir := "docs/src/"
 
 resolvers ++= Seq ( 
     Resolver.typesafeRepo("releases")
@@ -29,38 +19,8 @@ resolvers ++= Seq (
   )
 
 libraryDependencies ++= Seq (
-    "org.scala-sbt" % "launcher-interface" % "0.12.1" % "provided"
-  , "org.rogach" %% "scallop" % "0.9.1"
+    "org.rogach" %% "scallop" % "0.9.5"
   )
-
-scalacOptions ++= Seq(
-    "-feature"
-  , "-language:higherKinds"
-  , "-language:implicitConversions"
-  , "-language:postfixOps"
-  , "-language:reflectiveCalls"
-  , "-deprecation"
-  , "-unchecked"
-  )
-
-// sbt-release settings
-
-releaseSettings
-
-releaseProcess <<= thisProjectRef apply { ref =>
-  Seq[ReleaseStep](
-    checkSnapshotDependencies
-  , inquireVersions
-  , runTest
-  , setReleaseVersion
-  , commitReleaseVersion
-  , tagRelease
-  , publishArtifacts
-  , setNextVersion
-  , commitNextVersion
-  , pushChanges
-  )
-}
 
 // sbt-buildinfo settings
 
